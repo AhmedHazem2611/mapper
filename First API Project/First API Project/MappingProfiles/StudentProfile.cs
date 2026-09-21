@@ -8,7 +8,7 @@ namespace FirstApiProject.MappingProfiles
         public StudentProfile()
         {
             CreateMap<Student, StudentDTO>()
-                .ForMember(des => des.FullName, opt => opt.MapFrom(src => $"{src.FirstName} {src.LastName}"));
+                .ForMember(des => des.FullName, opt => opt.MapFrom(src => $"{src.FirstName} {src.LastName}")).ReverseMap();
             CreateMap<CreateStudentDTO, Student>()
                 .ForMember(des => des.FirstName,
                 opt => opt.MapFrom(src => src.FullName.Split(new[] { ' ' },

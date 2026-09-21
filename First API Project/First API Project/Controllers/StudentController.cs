@@ -34,15 +34,7 @@ namespace FirstApiProject.Controllers
             {
                 return NotFound($"Student with ID {id} was not found.");
             }
-            StudentDTO studentDTO = new StudentDTO();
-            //studentDTO.Id = student.Id;
-            //studentDTO.FirstName = student.FirstName;
-            //studentDTO.LastName = student.LastName;
-            //studentDTO.EmailAddress = student.EmailAddress;
-            //studentDTO.PhoneNumber = student.PhoneNumber;
-            //studentDTO.DateOfBirth = student.DateOfBirth;
-            //studentDTO.ClassRoomId = student.ClassRoomId;
-            //string classRoomName = _context.Classrooms.FirstOrDefault(x => x.Id == student.ClassRoomId)?.Name;
+            StudentDTO studentDTO = _mapper.Map<StudentDTO>(student);
             return Ok(studentDTO);
         }
         [HttpPost]
@@ -52,15 +44,9 @@ namespace FirstApiProject.Controllers
             {
                 return BadRequest();
             }
-            //Student student = new Student();
-            //student.FirstName = studentDTO.FirstName;
-            //student.LastName = studentDTO.LastName;
-            //student.EmailAddress = studentDTO.EmailAddress;
-            //student.PhoneNumber = studentDTO.PhoneNumber;
-            //student.DateOfBirth = studentDTO.DateOfBirth;
-            //student.ClassRoomId = studentDTO.ClassRoomId;
-            //_context.Students.Add(student);
-            //_context.SaveChanges();
+            Student student = _mapper.Map<Student>(studentDTO);
+            _context.Students.Add(student);
+            _context.SaveChanges();
             return Created();
         }
 
@@ -85,13 +71,7 @@ namespace FirstApiProject.Controllers
             {
                 return NotFound($"Student with ID {id} was not found.");
             }
-            //student.FirstName = studentDTO.FirstName;
-            //student.LastName = studentDTO.LastName;
-            //student.EmailAddress = studentDTO.EmailAddress;
-            //student.PhoneNumber = studentDTO.PhoneNumber;
-            //student.DateOfBirth = studentDTO.DateOfBirth;
-            //student.ClassRoomId = studentDTO.ClassRoomId;
-            //_context.Students.Update(student);
+            _mapper.Map(studentDTO, student);
             _context.SaveChanges();
             return NoContent();
         }
